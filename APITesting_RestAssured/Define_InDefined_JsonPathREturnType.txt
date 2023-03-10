@@ -1,0 +1,10 @@
+1)Defined : if we can determine/know the return argument then it defined if not then its indifined
+$.book[1].author = by seeing the expression we can identify that it will return a string hence its defined
+but,
+1)Defined : if we can determine/know the return argument then it defined if not then its indifined
+$.book[*] = here we didnt know the length otr type of return argument hence by default we go with List<object>, hence its called as indefined
+ eg:1) deepscan $..author
+2)array $.book[*] / $book[1:2] / $book [1,2]
+3)Using filters $.book[?(@au)]
+
+if we use mismatch return type then it leads to classcast exception

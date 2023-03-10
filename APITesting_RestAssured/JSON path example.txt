@@ -1,0 +1,108 @@
+{
+    "firstName": "John",
+    "lastName": "doe",
+    "age": 26,
+    "address": {
+        "streetAddress": "naist street",
+        "city": "Nara",
+        "postalCode": "630-0192"
+    },
+    "phoneNumbers": [
+        {
+            "type": "iPhone",
+            "number": "0123-4567-8888"
+        },
+        {
+            "type": "home",
+            "number": "0123-4567-8910"
+        }
+    ]
+}
+
+path : website http://javainuse.com/jsonpath
+
+1) direct elemt	
+	$.firstName    => John
+	$['firstName'] => John
+2) element inside parent &child
+	$.address.city => Nara
+	$['address']['city'] => Nara
+3)element inside list
+	$.phoneNumbers[1].type => home
+	$['phoneNumbers'][1]['type'] => home
+4)wildcard
+	$.* => print all the element only value no keys(CAN'T use it with [] i.e $.['*'])
+[
+	"John",
+	"doe",
+	26,
+	{
+		"streetAddress": "naist street",
+		"city": "Nara",
+		"postalCode": "630-0192"
+	},
+	[
+		{
+			"number": "0123-4567-8888",
+			"type": "iPhone"
+		},
+		{
+			"number": "0123-4567-8910",
+			"type": "home"
+		}
+	]
+]
+
+5)deep scan (..)
+ 	$..type => it will give all the value that matches with key "type",without mentioning parent by using child alone we can search
+		[
+			"iPhone",
+			"home"
+		]
+6) combine deepscan and wildcard($..*) => scan recursively till the extracting the last dictionary values
+[
+	"John",
+	"doe",
+	26,
+	{
+		"streetAddress": "naist street",
+		"city": "Nara",
+		"postalCode": "630-0192"
+	},
+	[
+		{
+			"number": "0123-4567-8888",
+			"type": "iPhone"
+		},
+		{
+			"number": "0123-4567-8910",
+			"type": "home"
+		}
+	],
+	"naist street",
+	"Nara",
+	"630-0192",
+	{
+		"number": "0123-4567-8888",
+		"type": "iPhone"
+	},
+	{
+		"number": "0123-4567-8910",
+		"type": "home"
+	},
+	"iPhone",
+	"0123-4567-8888",
+	"home",
+	"0123-4567-8910"
+]
+7) filters [?(<expression>)]
+
+input array : [1,2,3,4,5,6,5,7,8,9,10,11,12]
+1)Expression : $.[?(@>9)] , elements that greater than 9, @ denotes the currect element
+o/p : [10,11,12]
+2)Expression :  $.[?(@==5)] , elements that equals 5, @ denotes the currect element
+o/p : [5,5]
+3)Expression : $.[?(@ in [5,9,1])] , element that equals 5,9,1 
+o/p : [1,5,5,9]
+3)Expression : $.[?(@ nin [5,9,1])] , element that not equals 5,9,1 
+o/p : [2,3,4,6,7,8,10,11,12]

@@ -1,0 +1,20 @@
+Converting data object into transferrable format i.e byte stream
+
+its a process of converting a data object into a byte stream and saving the state of the object  to be 
+stored on a disk or transmitted across a network
+
+Eg: the data which we entered in UI converted as JSON and transmitted thrugh network
+
+UI -> Business logic -> Json object(to form a json obj serialization used)
+JSON Object is key value pair so for constructing that we need key value collection i.e MAP
+ after creating map and list object if we perform post request then it will end up with the error saying the no serializer found, if we add below in pom.xml and no need to update anything in class file
+
+
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.14.1</version>
+</dependency>
+
+after adding the dependency if we save the project then corresponding jars get downloaded and can post the request successfully now

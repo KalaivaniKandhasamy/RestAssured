@@ -1,0 +1,59 @@
+While validating if we have to retrive a particulare key value pair and validate that we use json path to retrieve
+2 ways/libraries for json path
+	1)jayway (github)
+	2)json slurper - rest assured based on groovy
+Terms:
+1.Notation - symolic representation = .,[]
+2)Expresstion - query 
+3)predicate - conditional operation result based on boolean for eg 1>10 - false
+4)filters(operators) - filter based on logical operations 
+5)Dictionary - inside {}
+6)List - inside []
+
+NOTATIONS AND OPETATORS (eg : jsonpath.com)
+$ 			= indicate root ele
+. or [''] [][""]	= indicate child
+@ 			= current ele
+* 			= wildcard/all element
+.. 			= deep scan/recursive descent
+[start:end]		= to slice array
+[?(<expression>)]	= filter expresion , result should be boolean
+
+FUNCTIONS 
+$.min()
+$.max()
+$.length()
+$.sum()
+$.stddev()
+$.avg()
+
+ARRAY SLICING
+1)[start:end] - start index is included, end index is excluded
+	[1,2,3,4,5,6,5,7,8,9,10,11,12]
+	path =[2:5]
+ 	o/p = [3,4,5]
+2)if no index for start , then default to 0
+	path =[:5]
+ 	o/p = [1,2,3,4,5]
+3)if no index for end , then default to array length
+	path =[5:]
+ 	o/p = [6,5,7,8,9,10,11,12]
+4)negativ number iterate from end of the array
+	path = [-1:]
+	o/p = [12]
+5)if start and end is same then result will be empty array
+	path = [2:2]
+	o/p = []
+6)left to right reading , end index is negative it won't read
+	path = [2:-2]
+	o/p = []
+
+if path = [-3:5] -> it will accept if start index is negative
+	o/p = [10,11,12,1,2,3,4,5]
+
+7)if start ele > array length then empty array returned
+	path = [20:6]
+	o/p = []
+8) if end > array length , slicing will have till the end of the array
+	path = [9:20]
+	o/p = [9,10,11,12]

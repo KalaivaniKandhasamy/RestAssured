@@ -1,0 +1,8 @@
+1)another way of parsing and validating
+2)If we parse using document context then its called as fluent api
+ eg1: using document context
+ 	DocumentContext context = JsonPath.parse(jsonfile);
+	List<Object> categoryList=context.read("$..category");
+ eg2: using configuration
+	Configuration config = Configuration.defaultConfiguration();
+	List<Object> categoryList1 = JsonPath.using(config).parse(jsonfile).read("$..category");

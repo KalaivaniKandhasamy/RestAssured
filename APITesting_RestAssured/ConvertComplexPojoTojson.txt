@@ -1,0 +1,19 @@
+Create separate been class for each sub class
+	define its variables
+	generate getters/setters
+add those subclass into main pojo via object
+ 	create obj for each sub class
+	define values for sub class variables through its corresponding getters & setters
+user object mapper to serialise pojo to json
+
+To elimate getters/setters code in program we opt for lombok
+1)Add its maven dependency : https://projectlombok.org/setup/maven
+2)Install Jar in eclipse :https://projectlombok.org/download
+3)delete all getter&setter methods in pojo class add below annotations on top of class name
+@Getter
+@Setter
+4)Run the program will run
+5)Can also use @Data instead of @Getter
+@Setter it will give additional methods like hashcode(), to string()
+6)Instead of giving in class level can also give in variable level, it will create getter & setter for that particular variable alone
+7)Can see getter & setter method in outline window can see explicitly inside class code

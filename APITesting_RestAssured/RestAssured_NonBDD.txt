@@ -1,0 +1,26 @@
+3Major Things
+	1)Base URI
+	2)Request Specification(how the request going to be handled whether POST/GET/PUT...etc)
+	    *additional requriment to perform request
+	3)Response
+
+GET Request - NON BDD
+	1)define base URI => restAssured.baseURI="give URI"
+	2)Request spec => RequestSpecification requestSpec = RestAssured.given();
+	3)hit request => requestSpec.request(Method.GET,"employee");
+POST Request(should give header() on request specification along with body else it wont create record)
+	1)define base URI => restAssured.baseURI="give URI"
+	2)Request spec => RequestSpecification requestSpec = RestAssured.given()
+							.header("Content-Type","application-json")
+							.body("{json request data}")
+	3)hit request => requestSpec.request(Method.POST,"employee");
+PUT Request(same as POST request additionally have to give ID on which record we going to update)
+	1)define base URI => restAssured.baseURI="give URI"
+	2)Request spec => RequestSpecification requestSpec = RestAssured.given()
+							.header("Content-Type","application-json")
+							.body("{json request data}")
+	3)hit request => requestSpec.request(Method.PUT,"employee/44");
+DELETE (same as get additionally have to give ID);
+	1)define base URI => restAssured.baseURI="give URI"
+	2)Request spec => RequestSpecification requestSpec = RestAssured.given();
+	3)hit request => requestSpec.request(Method.DELETE,"employee/43");

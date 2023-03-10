@@ -1,0 +1,32 @@
+ref web site : https://github.com/json-path/JsonPath
+if we want to overwrite the behavior of default configuration then we go for usage of configration class
+ 
+eg : sample JSON
+[
+   {
+      "name" : "john",
+      "gender" : "male"
+   },
+   {
+      "name" : "ben"
+   }
+]
+here in array[0] we have gender the same not in array[1], so we read array[1] in java program it will return "Pathnotfoundexception"
+which is default behavior, in this case we want to return null instead exception then we rely on configuration
+
+1)DEFAULT_PATH_LEAF_TO_NULL:
+
+Configuration config= Configuration.defaultConfiguration();
+		config=config.addOptions(Option.DEFAULT_PATH_LEAF_TO_NULL);
+		String result=JsonPath.using(config).parse(json).read("$.[1].gender");
+		System.out.println(result);
+2) ALWAYS_RETURN_LIST  : while we use indifined path it always return List in any case it return a string then it leads to classcastException to avoid that we use 
+		config=config.addOptions(Option.ALWAYS_RETURN_LIST);
+		List<Object> result=JsonPath.using(config).parse(json).read("$.[0].gender");
+3)SUPPRESS_EXCEPTIONS : instead showing exception it will return null if its string else [] if its list
+		config=config.addOptions(Option.SUPPRESS_EXCEPTIONS);
+		List<Object> result=JsonPath.using(config).parse(json).read("$.[1].gender");
+4)REQUIRE_PROPERTIES_Config1 : it will return PathNotFoundException even if any of the element not found in the list 
+	config=config.addOptions(Option.REQUIRE_PROPERTIES);
+		List<Object> result=JsonPath.using(config).parse(json).read("$.[*].gender");
+return exception as it doesnt have gender in [1] index , it will prevent from further validation exceptions

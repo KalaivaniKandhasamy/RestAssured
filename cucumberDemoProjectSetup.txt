@@ -1,0 +1,59 @@
+1) create maven project and give group and artificat id
+2)update JRE version by specify build and target version in pom.xml and update project from menu
+3)add dependency for
+	1)cucumber java
+	2)cucumber junit
+	3)cucumner gherkin
+	4)selenium java
+	5)log4j (core&api)
+4)create a folder name "Features" under resources
+5)create a feature file with extention .feature
+6)download cucumber plugin/editor that support feature file from eclipse market file
+7)create stepdef by running the feature file
+8)write a class file under the package com.myproject.stepDef and add def code copied from console
+9)write a runner class with below code
+@RunWith(Cucumber.class)
+@CucumberOptions(features="",
+glue="package path")
+10)run the runner class as JUnitTest
+11)convert project as "CucumberProject" , right click on project->configure->convert to cucumber project
+12)create property file as "config.property"
+	can either create in project level or inside resources folder
+	1)if created in project level then read like below
+		create obj for file reader & property class ,passing filereader class obj load the properties then using getProperty() get the property
+		FileReader reader= new FileReader("config.property");
+		Properties properties= new Property();
+		properties.load(reader)
+		properties.getProperty("URL");
+
+	2)if created inside resources folder then,
+		Properties prop=new Properties();
+		from inputstream -> prop.load(getClass().getResourceAsStream("/config.properties"))
+13)create a package and class to have constant variables that are read from properties file
+14)configure log4j
+add log4j properties file inside resources folder
+and load the log file in required class using below,
+create final variable 
+Logger LOGGER= LogManager.getLogger(<classname>.class) - use appache logger(interface)
+15)create a separate class for driver manager and call getter method to initialize driver(should have 1 driver instance for whole session) so make the variable and function as statis
+16)create POM for each page of the application
+	1)create a element in each page object class to find in wen page(@FindBy()) and getter method to access variables from other class
+	2) call page factory to initialize web elements(call initmethod)
+17)since we introduced pagefactory, if we create a instance for any of the class then the variables became null which we set using pagefactory so implement singleton pattern
+18)By creating singleton pattern
+	1)create a private static variable of class type to store object
+	2)create private constructor (make it as private so that can't create object out of the class)
+	3)create a static method with return type as class and check if object is not null then create one
+19)after creating singleton to access corresponding class members , use getter method and to create obj call getInstance method of particular class
+20)Insert action methods inside page object class and remove getter methods
+USERNAME=mytest92@gmail.com
+21)take screen shot
+	1)surround all the code with try/catch
+	2)write func to take screen shot
+		File screen=((TakeScreenShot)driver).getScreenshotAs(outputType.FILE) -> typecast driver as Takescreenshot class and take screenshot
+		FileUtils.copyFile(screen,new File("screen.png"))
+call take screen shot func inside catch to take screen shot if exception occured on screen
+
+
+
+

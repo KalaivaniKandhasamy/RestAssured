@@ -1,0 +1,12 @@
+1)@JsonAnyGetter : While using map in pojo the map variable will come as dictionary key in json but in schema if we didnt have that structure it will end up with msimatch to avoid this we go for this
+ it will elimate the adding of key while serializing
+it can be used only above the getter methods, 
+Eg: 
+
+2)@JsonGetter : To change the Key value in result
+eg:
+@JsonGetter(value="Employee Email")
+	public String getEmail() {
+		return email;
+	}
+In json o/p instead of email it will show as Employee Email

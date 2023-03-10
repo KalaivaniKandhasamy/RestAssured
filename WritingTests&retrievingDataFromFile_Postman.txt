@@ -1,0 +1,36 @@
+1)To write test -> select "Tests" we can write our own test case or else use snippets
+	1)can start with the postman object pm and call test() by default inside that can write our customized tests
+		eg: to check status
+		1)BDD Chaining =>
+		   pm.test("test name",function(){
+		     pm.response.to.have.status(201);
+		   })
+		2)Chai assertion (expect())
+		  pm.test("test name",function(){
+		     pm.expect(pm.response.status).to.equal(201);
+		   })
+		eg: 
+		1) to check coulmn value
+			pm.test("check column value",function(){
+		     		pm.expect(pm.response.text()).to.include("kalai");
+		   	})
+		2)to check column name
+			pm.test("check column name",function(){
+		     		pm.expect(pm.response.text()).to.include(data.name);
+				console.log(data["name"])
+		   	})
+2)To retrieve data from Json
+	1)Create a JSON file with data
+	2)Create a folder to hold the request to retrieve data
+	3)Create new "POST" request and define the body elements like below
+		"keyValue":"{{keyvalue_mentioned in JSON}}"
+		eg:
+		"name":"{{name}}"  ->include "" if its a string for integer no need
+		"age":{{age}} ->integer
+	4)select folder to include data and click "RUN" Option then select the file that contains data, after selecting the file the number of row that has to be created will be shown in iteration box value,can also preview the data in file
+	5)After selecting the file click "RunlocalServerAPI"
+3)same as above select .csv file instead json
+4)we can also execute test case as folder level/collection/data that retrieved from file
+writing test is same as writing for individual test but while running have to select "Run" option from folder level & the test execution iteration is equal to no of col*no of test cases
+for eg: if we have 2 row of data and 4 tests then execution = 8 iteration 
+5)we can write test script as pre request script also

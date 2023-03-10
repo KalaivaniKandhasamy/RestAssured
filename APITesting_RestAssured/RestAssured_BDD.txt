@@ -1,0 +1,35 @@
+json-server --watch db.json
+when we write using GIVEN,WHEN,THEN its called BDD
+	GIVEN - pre condition
+	WHEN - action to be performed 
+	THEN -validate the action performed as expected
+GET Request :
+RestAssured.given()
+		.baseUri("http://localhost:3000")
+	   .when()
+		.get("/employees")
+	   .prettyprint();
+STATIC Import : can import every package inside RestAssured as statis import
+import statis io.restassured.RestAssured.*;
+then we no need to use RestAssured can directly start with given ().
+eg:	    given()
+		.baseUri("http://localhost:3000")
+	   .when()
+		.get("/employees")
+	   .prettyprint();
+
+POST Request:
+
+eg:	    given()
+		.baseUri("http://localhost:3000")
+		.header("Content-Type","application-json")
+		.body("{json request data}")
+	   .when()
+		.post("/employees")
+	   .prettyprint();
+Reading data from external file and perform post request
+	create a json file in project level
+	create file object and pass file location
+	give file object in body()
+		eg: File jsonData = new file("postData.json")
+			.body(jsonData)

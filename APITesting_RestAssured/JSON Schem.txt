@@ -1,0 +1,79 @@
+Schema : plan/representation/blue print
+Representation of how the json properties will look like
+eg: {
+	id:integer
+	name:string
+	email:string
+	}
+In terms of UI its called as mock screen
+
+Generate Scema using sample JSON data through online schema generator
+
+JSON Data
+{
+  "firstName" : "Kalaivani",
+  "lastName" : "Nagarathinam",
+  "email" : "kalai@gmail.com",
+  "skills" : [ "Java", "Selenium" ]
+}
+
+Corresponding Schema
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "skills": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "firstName",
+    "lastName",
+    "email",
+    "skills"
+  ]
+}
+
+Schema validation:
+WAYS to construct JSON: String(directly giving json string in the body)/json file(giving in external file)/java collection(map & arraylist)/POJO
+Validation :way to ensure the JSON request & response is as expected & aligned as per the schema we designed
+We can validate both request & response but mostly response only get validated
+we have several options/library for schema validation
+1)io.rest-assured.json-schema-validation
+2)org.everit.json.schema
+3)com.networknt.json-schema-validator
+4)org.hamcrest.hamcrest
+
+1)io.rest-assured.json-schema-validation
+	1)matchesJsonSchemaInClasspath() accepts only string(schema file name which should be defined in class path)
+	2)matchedJsonSchema() (has so many forms of same function can use file/inputstream/reader/string/url/classpath/uri)
+		for string - have to give actual schema  validatation content not file path
+2) networknt - fastest schema validator (saying)
+for parsing json they using jackson databind
+	1)create object for object map to parser input json data using readtree() and store that into JsonNote
+	2)create obj for jsonSchema to store schema file
+	3)Validate both using validate() and store result into set , if the set is empty validatation done if not then erroroccured while validating
+3)Hamcrest 
+	1)using MatcherAssert.assertThat(string,boolean)
+		String => to convert file object into string can use fileUtility
+			1)add maven dependency for apache common io
+			2)use fileUtils package in class code
+			Eg: FileUtils.readFileToString(inputfile,"UTF-8")
+		boolean	=> JsonSchemaValidator.matchesJsonSchema(schemafile) ->rest assured method

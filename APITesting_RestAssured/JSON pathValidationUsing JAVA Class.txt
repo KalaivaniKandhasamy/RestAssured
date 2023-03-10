@@ -1,0 +1,22 @@
+1)Jayway maven dependency in pom.xml
+	<dependency>
+    <groupId>com.jayway.jsonpath</groupId>
+    <artifactId>json-path</artifactId>
+    <version>2.7.0</version>
+</dependency>
+
+2)Create a java class with main method
+3)write a function that read a file and use JSONPath class to access the read method to parse the json file and validate & return corresponding o/p
+	File jsonfile = new File("src/test/resources/bookStore.json");
+	List<Object> priceList = JsonPath.read(jsonfile, "$..price");
+
+If we use read function then it will read the json file everytime whenever we write a code to validate expression 
+(i.e)
+	List<Object> priceList = JsonPath.read(jsonFile,"$..price")
+	List<Object> categoryList = JsonPath.read(jsonFile,"$..category")
+
+in the above case it read the json file 2 times for each read but if we parse the file through configuration then it will read once alone
+
+		InputStream jsonfile = new FileInputStream("src/test/resources/bookStore.json");
+		Object parsedJsonDoc = Configuration.defaultConfiguration().jsonProvider().parse(jsonfile.readAllBytes());
+		List<Object> categoryList = JsonPath.read(parsedJsonDoc, "$..category");

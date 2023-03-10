@@ -1,0 +1,3 @@
+RequestSpecBuilder builder = new RequestSpecBuilder();
+	RequestSpecification	rec = builder.setBaseUri("http://localhost:3000").setBasePath("/employees").build();
+	RestAssured.given(rec).get("/16").prettyPrint();

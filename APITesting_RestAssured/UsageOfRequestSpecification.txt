@@ -1,0 +1,46 @@
+1)Instead of giving base uri OR common attributes repeatly in the code if we define it in requestspec we can use it globally
+2)if it requires any change in future can update only one place it will update everywhere we used
+
+GIVEN and With both will return request specification, no difference b/w those except syntax
+
+Eg:
+RequestSpecification requestSpecification = RestAssured.with().baseUri("http://localhost:3000/").basePath("employees");
+ OR
+RequestSpecification requestSpecification = RestAssured.given().baseUri("http://localhost:3000/").basePath("employees");
+
+once we define the requestSpecification we can call spec() to use this while hitting the api call
+
+Eg
+Get All Emp:
+RestAssured.given()
+		.spec(requestSpecification)
+		.when()
+		.get("").prettyPrint();
+Get Single Emp
+RestAssured.given().spec(requestSpecification)
+		.when().get("/3").prettyPrint();
+
+Can also give multiple request specifications
+for get :RestAssured.given().spec(requestSpecification).when().get("").prettyPrint();
+for Post: RequestSpecification createRequest = RestAssured.given().contentType(ContentType.JSON).baseUri("http://localhost:3000/")
+			.basePath("/employees");
+	RestAssured.given().spec(createRequest).when().post();
+
+Instead of giving request specification individually in all request if we decalare in rest assured's static variable 'requestSepcification' then we can use
+hence we no need to use spec()
+Eg:
+	RequestSpecification requestSpecification;
+	@BeforeSuite
+	public void setRequestSpecification() {
+		requestSpecification=RestAssured.given()
+		.baseUri("http://localhost:3000/")
+		.basePath("employees");
+		//*below is the way of storing request specification in Rest assured static variablerequestSpecification, hence we no need to use spec()*//
+		RestAssured.requestSpecification=requestSpecification;
+	}
+	@Test
+	public void getAllEmp() {
+		RestAssured.given()
+		.when()
+		.get("").prettyPrint();
+	}

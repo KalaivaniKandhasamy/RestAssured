@@ -1,0 +1,56 @@
+comes inside ? condition which returns boolen result
+type :
+1)InlinePredicate
+2)FilterPredicate
+3)CustomePredicate
+
+1) InlinePredicate : 
+give predicate along with json path
+eg: List<Object> priceList=JsonPath.parse(jsonFile).read("$.store.book[?(! (@.price<10 && @.category=='fiction'))]");
+JsonPath= $.store.book[]
+Predicate = ?(expression) eg: ?(@.price<20) 
+inline predicate : if we give predicate inside jsonpath
+$.store.book[?(@.price<10)]
+
+Can use AND && OR|| Not! operations also
+eg:
+AND = $.store.book[?(@.price<10 && @.category=='fiction')]
+OR =  $.store.book[?(@.price<10 || @.category=='fiction')]
+NOT = eg:$.store.book[?(!(@.price<10 && @.category=='fiction'))]
+
+2) Filter Predicates: 
+using filter class and its fucntion arriving a predicate and use that variable inside path instead giving it inline
+Filter priceCondition =	 Filter.filter(Criteria.where("price").lt(10));
+List<Object> priceList=JsonPath.parse(jsonFile).read("$.store.book[?]",priceCondition);
+
+Using And operation : lt = less than, is = equals
+ Filter priceAndCategory = Filter.filter(
+			 Criteria
+			 .where("price")
+			 .lt(10) 
+			 .and("category")
+			 .is("fiction")); 
+List<Object> priceAndCategoryList=JsonPath.parse(jsonFile).read("$.store.book[?]",priceAndCategory);
+ /*OR*/ 
+if we want to perform any operation from the result then we can go for map of list else can store in list 
+
+ List<Map<String,Object>> priceAndCategoryListMap = JsonPath.parse(jsonFile).read("$.store.book[?]",priceAndCategory);
+ System.out.println(priceAndCategoryListMap.get(0).get("author")); /* we cant do this if we store in list alone without map
+
+3)Custom predicate : 
+can use predicate interface and definition we can give functional interface(if an interface has only one function) or Lamp da expression
+
+use Predicate interface and write code line creating object for interface(i.e if we give new Predicate and (ctrl+space) select anonymous inner type, then it will give a apply function)
+Predicate booksWithISBN = new Predicate() {
+			
+			@Override
+			public boolean apply(PredicateContext ctx) {
+				// TODO Auto-generated method stub
+				boolean predicate=ctx.item(Map.class).containsKey("isbn");
+				return predicate;
+			}
+		};
+List<Map<String, Object>>	result = JsonPath.parse(jsonfile).read("$.store.book[?].isbn",booksWithISBN);
+
+/OR/ we can use lambda expression (->)
+Predicate booksWithISBN = ctx->ctx.item(Map.class).containsKey("isbn");

@@ -1,0 +1,34 @@
+1)GET- To retrieve data and will return status code as "200" and status Message as "OK"
+2)When resource not found while hitting GET request then it will return 404 as statuscode and "Not Found"as message
+3)POST - To create a resource , it will return 201 as code and "Created" as message
+4)PUT- To update existing resource, it will return 200 as code and "OK" as message
+5)Delete- To Delete existing resource, it will return 200 as code and "OK" as message
+
+6) Authentication VS Authorization
+	1)verifying who someone as
+	2)verifying applications,files amd data a user can access to
+Eg: authentication is the process of provide limitation for your authorization access
+7)Authorization Types: 
+	1)No auth
+	2)API Key : Response code "401" "Unauthorized" (if we pass invalid api key) Eg: 0233deda8d767cece3859007b4757c5d
+	3)Bearer token :after sucessfull login with uname&pword it will return a token to access other resources, by using that we can call api, should mention in header only, while calling from automation code need to prepand "Bearer" keyword before token
+	4)Basic auth : username/password : response code :401
+	5)DigestAuth: after logged with username?pword it will return 401 unauthorized response along with some header  values copy that and and update the same in request header then try for successfull access
+	6)OAuth 1.0 ; DEPRECATED IN 2012
+	7)OAuth 2.0: authorization happening between 2 different services(applications like accessing photos in google driver from another app)
+		sample parameters to be given to perform oAuth 
+		1)call back URL
+		2)auth URL
+		3)Access token URl
+		4)Client ID
+		5)Client screat
+		6)scope
+*after giving above parameters click "get access token in postman"
+
+8)Global variable(get it by clicking on eye symbol on postman app) : accessable through out the project with different collections also, Eg: all the API has same end point then store that in variable
+ 	1)Initial value: while sharing collection with other if we want to share variables also then declare here
+	2)current value: if we dont want to share variable value then can give in this
+	Usage: use with in {{}}
+9)Environment Variables
+ if we define any variable as global than its accessible throught out workspace,but if we want to set specific to environments(dev,testing,staging,production) then we can declare as environment specific
+10)Collections variable: have access only within specific collections, can set using the option availble near the document type menu option as "variable" have to specific scope by selecting the specific collection name

@@ -1,0 +1,33 @@
+POJO - Plain Old Java Object
+the data given in UI will get stored in pojo object -> have to serialize that objects to convert into json to perform api testing(get/post/put/delete)
+*using Object mapper can perform JSON serialization
+		ObjectMapper objectMap = new ObjectMapper();
+		String empJSON=objectMap.writerWithDefaultPrettyPrinter().writeValueAsString(empPojoClass); *empPojoClass is the object of POJO class
+Step 1: Getting values from UI and storing it into POJO objects using getter & setters
+Step 2 : serialize pojo into json to transmit through network while perform get/post..ect request
+Step 3: deserialize the response received from above steps to store it into pojo objects
+*Deserialization_Using Object Mapper: reverse operation of serialization
+String json = "{\r\n"
+			+ "  \"firstName\" : \"Kalaivani\",\r\n"
+			+ "  \"lastName\" : \"Nagarathinam\",\r\n"
+			+ "  \"email\" : \"kalai@gmail.com\",\r\n"
+			+ "  \"skills\" : [ \"Java\", \"Selenium\" ]\r\n"
+			+ "}";
+	ObjectMapper mapper= new ObjectMapper();
+	EmpPOJO emp=mapper.readValue(json, EmpPOJO.class); /* it will set the corresponding key's value to pojo object from json */ 
+	System.out.println(emp.getFirstName());
+
+*Deserialization using Jayway JsonPath: in read() we can give $ or "" to read all json data
+
+create a mapping provider & add that provider into configuration then use that configuration in jsonpath read()
+	JacksonMappingProvider jackshonMapper=new JacksonMappingProvider();
+	Configuration config=Configuration.builder().mappingProvider(jackshonMapper).build();
+	EmpPOJO emp=JsonPath.using(config).parse(json).read("$",EmpPOJO.class);
+
+* Deserialization using RestAssured JsonPath :
+
+import jsonpath from restassured
+use jsonpath.from() method to get json data
+use getObject() to map json to pojo mappin
+		JsonPath jsonData=JsonPath.from(json);
+		EmpPOJO emp=jsonData.getObject("", EmpPOJO.class);

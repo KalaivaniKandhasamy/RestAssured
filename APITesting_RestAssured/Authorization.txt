@@ -1,0 +1,32 @@
+1)Basic Auth:
+	to do it use function auth() inside that call basic(username,password) after given()
+Eg:
+	RestAssured.given()
+		.auth()
+		.basic("postman", "password")
+		.baseUri("https://postman-echo.com")
+	.when()
+		.get("/basic-auth").prettyPrint();
+
+
+2)API Key: we can give key either in header() or query param()
+for each param we have to use separate query param()
+Eg:
+RestAssured.given()
+			.queryParam("q", "Bangalore")
+			.queryParam("appid", "0233deda8d767cece3859007b4757c5d")
+			.when()
+			.get("https://api.openweathermap.org/data/2.5/weather")
+			.then()
+			.log().body();
+
+Instead of pretty print we can also use .then().log().body()
+
+3)Bearer Token:
+create user's own "Personal access token" and use that for authorization
+eg: creating access token in github
+
+have to give token inside header(), key = Authorization value = Bearer then user own key
+eg: given().header("Authorization","Bearer ghp_aANvgdfwerfgadgsfgfgg").when.get("https://api.github.com/user/repos")
+
+4)OAuth2.0 : same as Bearer instead of header() have to given inside auth().oauth2(token)

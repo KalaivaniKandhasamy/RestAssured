@@ -1,0 +1,49 @@
+{
+  "squadName": "Justice League",
+  "members": [
+    {
+      "name": "Bruce",
+      "age": 35,
+      "ID": "Batman",
+      "powers": [
+        "super rich",
+        "Genius",
+        "Batmobile"
+      ]
+    },
+    {
+      "name": "Diana",
+      "age": 300,
+      "ID": "Wonder woman",
+      "powers": [
+        "The Lasso of truth",
+        "smile",
+        "immortal"
+      ]
+    },
+    {
+      "name": "Clark",
+      "age": 10000,
+      "ID": "superman",
+      "powers": [
+        "flight",
+        "super-speed",
+        "heat vision"
+      ]
+    }
+  ]
+}
+
+Expressions :
+1)to get all the members details : $.members
+2)To get no of members : $.members.length()
+3)to get ID of members : $.members[*].ID (if we want to get specific element from array then need to give its index, to get ID from all the list in array then use *)
+4) to get powers of members : $.members[*].powers [oR] $..powers
+5) to get powers of batman alone : $.members[?(@.ID== 'Batman')].powers
+6) get name of hero whose age is > than 100 : $.members[?(@.age> 100)].name
+7) name of first 2 super heros in the list : $.members[0:2].name
+	if we use $.members[0,2].name => it gives element in 0 and 2 position
+	but we user $.members[0:2].name => it gives range of value , i.e from element 0 to 2
+8)get powers of last super hero in the list : $.members[-1].powers
+9)get all the ID that ends with "man" : $.members[?(@.ID=~/.*man/i)].ID
+Regular Expression = ~/.*/ to match any string, here we have to match with man so ~/.*man/ if we want to ignore case sensetivity then use 'i'  ~/.*man/i
